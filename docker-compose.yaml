@@ -30,7 +30,7 @@ services:
       - prod
 
   mongo:
-    image: mongo
+    build: ./mongo
     container_name: mongodb
     env_file:
       - .env
