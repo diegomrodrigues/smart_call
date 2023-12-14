@@ -2,6 +2,7 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const errorHandler = require('errorhandler')
 
 const db = require('./config/db')
 
@@ -17,6 +18,10 @@ app.use(cartsRoutes)
 app.get('/', (req, res) => {
   res.send(`Hello World!`)
 })
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(errorHandler())
+}
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
