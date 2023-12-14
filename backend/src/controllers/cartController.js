@@ -4,13 +4,14 @@ const call = require('../call')
 const cartController = {
     async create(req, res) {
         try {
+            console.log(req.body)
             const newCart = new Cart(req.body)
 
             await newCart.save()
 
-            const callToAction = await call.createCallToAction(newCart)
-
-            res.status(201).json(callToAction)
+            //const callToAction = await call.createCallToAction(newCart)
+            //res.status(201).json(callToAction)
+            res.status(201).json(newCart)
         } catch (error) {
             console.error(error)
             res.status(500).send("Error")

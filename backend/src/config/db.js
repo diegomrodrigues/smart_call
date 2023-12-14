@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, {
+  auth: {
+    username: process.env.MONGODB_USER,
+    password: process.env.MONGODB_PASSWORD
+  },
+  dbName: "smart_call"
+})
 
 const db = mongoose.connection
 
