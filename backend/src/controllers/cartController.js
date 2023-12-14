@@ -4,8 +4,7 @@ const call = require('../call')
 const cartController = {
     async create(req, res) {
         try {
-            console.log(req.body)
-            const newCart = new Cart(req.body)
+            const newCart = new Cart(req.body.cart)
 
             await newCart.save()
 
