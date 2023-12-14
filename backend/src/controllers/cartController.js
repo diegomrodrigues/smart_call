@@ -1,18 +1,17 @@
 const Cart = require('../models/Cart')
-const call = require('../call')
+const cta = require('../cta')
 
 const cartController = {
     async create(req, res, next) {
         try {
             const newCart = new Cart(req.body.cart)
 
-            await newCart.save()
+            const result = await cta.createCallToAction(newCart)
 
-            const callToAction = await call.createCallToAction(newCart)
-        
-            console.log(callToAction)
+            newCart.ctas = result.ctas
+            newCart.save()
 
-            res.status(201).json(callToAction)    
+            res.status(201).json(result)
         } catch (error) {
             next(error)
         }

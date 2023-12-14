@@ -13,7 +13,18 @@ function chatCompletion(prompt) {
     return new Promise((resolve, reject) => {
         openAi.post('/v1/chat/completions', prompt)
             .then((response) => {
-                resolve(response.data)
+                try {
+                    if (response.data.choices.length === 0) {
+                        throw new Error(`Error while calling openai api ${JSON.stringify(response.data)}`)
+                    }
+
+                    const message = response.data.choices[0].message
+                    const content = JSON.parse(message.content)
+
+                    resolve(content)
+                } catch (error) {
+                    reject(error)
+                }
             })
             .catch(error => {
                 reject(error)

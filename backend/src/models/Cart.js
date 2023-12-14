@@ -19,9 +19,15 @@ const productSchema = new Schema({
     images: [String]
 })
 
+const ctaSchema = new Schema({
+    product: String,
+    cta: String
+})
+
 const cartSchema = new Schema({
     user: userSchema,
-    products: [productSchema]
+    products: [productSchema],
+    ctas: [ctaSchema]
 })
 
 const Cart = mongoose.model("Cart", cartSchema)
